@@ -19,7 +19,7 @@ contract BlackListControl {
 
     function setBlackListStatusForAddress(PoolId _pool, address _sender, bool _status) external {
         require (msg.sender == poolOwner, "Only for Pool Owner");
-        require (_sender == address(0), "No Zero Address");
+        require (_sender != address(0), "No Zero Address");
         blackList[_pool][_sender] =_status;
     }
 

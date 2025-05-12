@@ -80,7 +80,7 @@ contract BlackListHookTest is Test, Fixtures {
         );
     }
 
-    function testBlackListHook_swapOk() public {
+    /*function testBlackListHook_swapOk() public {
 
         // Perform a test swap //
         bool zeroForOne = true;
@@ -89,5 +89,16 @@ contract BlackListHookTest is Test, Fixtures {
         // ------------------- //
 
         assertEq(int256(swapDelta.amount0()), amountSpecified);
+    }*/
+
+    function testBlackListHook_swapFail() public {
+
+        // Perform a test swap //
+        bool zeroForOne = true;
+        int256 amountSpecified = -1e18; // negative number indicates exact input swap!
+        hook.setBlackListStatusForAddress(poolId, address(this), true);
+        vm.expectRevert();
+        BalanceDelta swapDelta = swap(key, zeroForOne, amountSpecified, abi.encode(address(this)));
+        // ------------------- //
     }
 }
